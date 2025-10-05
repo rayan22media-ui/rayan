@@ -44,17 +44,24 @@ const App: React.FC = () => {
             <h2 className="text-3xl font-bold text-amber-600 mb-6 border-b-2 border-amber-500/30 pb-2">
               متجر الملياردير
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {PRODUCTS.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onBuy={handleBuy}
-                  canAfford={fortune >= product.price}
-                  formatCurrency={formatCurrency}
-                />
-              ))}
-            </div>
+            {PRODUCTS.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {PRODUCTS.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onBuy={handleBuy}
+                    canAfford={fortune >= product.price}
+                    formatCurrency={formatCurrency}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-lg shadow-lg p-8 text-center text-gray-500 h-full flex flex-col justify-center items-center">
+                <h3 className="text-2xl font-bold mb-2">المتجر مغلق حالياً</h3>
+                <p>لا توجد منتجات لعرضها في الوقت الحالي. ربما اشترى إيلون كل شيء!</p>
+              </div>
+            )}
           </div>
 
           {/* Cart/Possessions Section */}
