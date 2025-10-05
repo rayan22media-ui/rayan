@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { Header } from './components/Header';
 import { ProductCard } from './components/ProductCard';
@@ -34,7 +33,7 @@ const App: React.FC = () => {
   const totalSpent = ELON_FORTUNE - fortune;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-black p-4 sm:p-6 lg:p-8">
+    <div className="min-h-screen bg-gray-100 text-gray-800 p-4 sm:p-6 lg:p-8">
       <div className="container mx-auto">
         <Header fortune={fortune} formatCurrency={formatCurrency} />
 
@@ -42,7 +41,7 @@ const App: React.FC = () => {
           
           {/* Products Section */}
           <div className="lg:col-span-2">
-            <h2 className="text-3xl font-bold text-amber-400 mb-6 border-b-2 border-amber-500/30 pb-2">
+            <h2 className="text-3xl font-bold text-amber-600 mb-6 border-b-2 border-amber-500/30 pb-2">
               متجر الملياردير
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -59,18 +58,18 @@ const App: React.FC = () => {
           </div>
 
           {/* Cart/Possessions Section */}
-          <div className="lg:col-span-1 bg-gray-800/50 rounded-lg p-6 shadow-2xl border border-gray-700 h-fit sticky top-8">
-            <h2 className="text-2xl font-bold text-green-400 mb-4 border-b-2 border-green-500/30 pb-2">
+          <div className="lg:col-span-1 bg-white rounded-lg p-6 shadow-2xl border border-gray-200 h-fit sticky top-8">
+            <h2 className="text-2xl font-bold text-green-600 mb-4 border-b-2 border-green-500/30 pb-2">
               ممتلكاتك
             </h2>
             <div className="space-y-2 mb-6 text-lg">
-                <p><strong>المبلغ الذي تم إنفاقه:</strong> <span className="font-mono text-red-400">{formatCurrency(totalSpent)}</span></p>
-                <p><strong>العناصر المشتراة:</strong> <span className="font-mono text-cyan-400">{cart.length}</span></p>
+                <p><strong>المبلغ الذي تم إنفاقه:</strong> <span className="font-mono text-red-600">{formatCurrency(totalSpent)}</span></p>
+                <p><strong>العناصر المشتراة:</strong> <span className="font-mono text-cyan-500">{cart.length}</span></p>
             </div>
             
             <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
               {cart.length === 0 ? (
-                <p className="text-gray-400 text-center py-10">عربة التسوق فارغة. ابدأ بإنفاق بعض المليارات!</p>
+                <p className="text-gray-500 text-center py-10">عربة التسوق فارغة. ابدأ بإنفاق بعض المليارات!</p>
               ) : (
                 cart.map((item) => (
                   <CartItem

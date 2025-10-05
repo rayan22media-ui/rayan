@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { Product } from '../types';
 
@@ -10,10 +9,10 @@ interface CartItemProps {
 
 export const CartItem: React.FC<CartItemProps> = ({ item, onSell, formatCurrency }) => {
   return (
-    <div className="bg-gray-700/50 p-3 rounded-lg flex items-center justify-between shadow-md transition-all duration-300 hover:bg-gray-700">
+    <div className="bg-gray-100 p-3 rounded-lg flex items-center justify-between shadow-md transition-all duration-300 hover:bg-gray-200">
       <div>
-        <p className="font-semibold text-gray-200">{item.name}</p>
-        <p className="text-sm font-mono text-green-400">{formatCurrency(item.price)}</p>
+        <p className="font-semibold text-gray-800">{item.name}</p>
+        <p className="text-sm font-mono text-green-600">{formatCurrency(item.price)}</p>
       </div>
       <button 
         onClick={() => onSell(item)}
