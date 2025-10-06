@@ -1,96 +1,101 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Header } from './components/Header';
 import { ProductCard } from './components/ProductCard';
-import { CartItem } from './components/CartItem';
-import { ELON_FORTUNE, PRODUCTS } from './constants';
-import type { Product } from './types';
+import { CartItem as Footer } from './components/CartItem';
+import { SKILL_CATEGORIES, PROJECTS, SOCIAL_LINKS } from './constants';
+import type { Project, SkillCategory } from './types';
 
 const App: React.FC = () => {
-  const [fortune, setFortune] = useState<number>(ELON_FORTUNE);
-  const [cart, setCart] = useState<Product[]>([]);
-
-  const formatCurrency = (amount: number): string => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      notation: 'compact',
-      maximumFractionDigits: 2,
-    }).format(amount);
-  };
-
-  const handleBuy = useCallback((product: Product) => {
-    if (fortune >= product.price) {
-      setFortune((prevFortune) => prevFortune - product.price);
-      setCart((prevCart) => [...prevCart, { ...product, id: Date.now() + Math.random() }]);
-    }
-  }, [fortune]);
-
-  const handleSell = useCallback((itemToSell: Product) => {
-    setFortune((prevFortune) => prevFortune + itemToSell.price);
-    setCart((prevCart) => prevCart.filter((item) => item.id !== itemToSell.id));
-  }, []);
-  
-  const totalSpent = ELON_FORTUNE - fortune;
-
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800 p-4 sm:p-6 lg:p-8">
-      <div className="container mx-auto">
-        <Header fortune={fortune} formatCurrency={formatCurrency} />
+    <div className="bg-slate-900 text-slate-300 font-sans leading-relaxed">
+      <Header />
+      
+      <main className="container mx-auto px-6 md:px-12 lg:px-20">
+        
+        {/* Hero Section */}
+        <section id="hero" className="min-h-screen flex flex-col justify-center items-start text-right">
+          <h1 className="text-lg md:text-xl font-mono text-cyan-400 mb-4">مرحبًا، أنا</h1>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-slate-100">
+            محمد.
+          </h2>
+          <h3 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-400 mt-2">
+            أبني حلولًا للمستقبل.
+          </h3>
+          <p className="mt-6 max-w-xl text-slate-400 text-lg">
+            مبرمج متخصص وخبير تقني، أملك سنوات من الخبرة في تحويل الأفكار المعقدة إلى واقع رقمي ملموس. أبحث دائمًا عن التحديات الجديدة لبناء تطبيقات قوية وأنيقة.
+          </p>
+          <a href="#contact" className="mt-8 px-8 py-4 bg-transparent border-2 border-cyan-400 text-cyan-400 rounded-md font-bold text-lg hover:bg-cyan-400/10 transition-colors duration-300">
+            تواصل معي
+          </a>
+        </section>
 
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Products Section */}
-          <div className="lg:col-span-2">
-            <h2 className="text-3xl font-bold text-amber-600 mb-6 border-b-2 border-amber-500/30 pb-2">
-              متجر الملياردير
-            </h2>
-            {PRODUCTS.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {PRODUCTS.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onBuy={handleBuy}
-                    canAfford={fortune >= product.price}
-                    formatCurrency={formatCurrency}
-                  />
-                ))}
-              </div>
-            ) : (
-              <div className="bg-white rounded-lg shadow-lg p-8 text-center text-gray-500 h-full flex flex-col justify-center items-center">
-                <h3 className="text-2xl font-bold mb-2">المتجر مغلق حالياً</h3>
-                <p>لا توجد منتجات لعرضها في الوقت الحالي. ربما اشترى إيلون كل شيء!</p>
-              </div>
-            )}
+        {/* About Section */}
+        <section id="about" className="py-24">
+          <h2 className="text-3xl font-bold text-slate-100 mb-8 relative inline-block">
+            <span className="font-mono text-cyan-400 text-2xl mr-2">01.</span>
+            نبذة عني
+            <span className="block h-0.5 w-full bg-cyan-400/50 mt-2"></span>
+          </h2>
+          <div className="text-slate-400 text-lg space-y-4 max-w-3xl">
+            <p>
+              مرحبًا! أنا محمد، مبرمج شغوف بخبرة تمتد لسنوات في عالم تطوير الويب. أؤمن بأن التكنولوجيا هي الأداة الأقوى لحل المشكلات المعقدة، وأكرس وقتي لبناء تطبيقات ليست فقط قوية من الناحية التقنية، بل تتميز أيضًا بتجربة مستخدم سلسة وممتعة.
+            </p>
+            <p>
+              من الواجهات الأمامية التفاعلية إلى الأنظمة الخلفية القوية، أستمتع بكل مرحلة من مراحل التطوير وأسعى دائمًا لتعلم أحدث التقنيات لتقديم أفضل الحلول الممكنة.
+            </p>
           </div>
+        </section>
 
-          {/* Cart/Possessions Section */}
-          <div className="lg:col-span-1 bg-white rounded-lg p-6 shadow-2xl border border-gray-200 h-fit sticky top-8">
-            <h2 className="text-2xl font-bold text-green-600 mb-4 border-b-2 border-green-500/30 pb-2">
-              ممتلكاتك
-            </h2>
-            <div className="space-y-2 mb-6 text-lg">
-                <p><strong>المبلغ الذي تم إنفاقه:</strong> <span className="font-mono text-red-600">{formatCurrency(totalSpent)}</span></p>
-                <p><strong>العناصر المشتراة:</strong> <span className="font-mono text-cyan-500">{cart.length}</span></p>
-            </div>
-            
-            <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
-              {cart.length === 0 ? (
-                <p className="text-gray-500 text-center py-10">عربة التسوق فارغة. ابدأ بإنفاق بعض المليارات!</p>
-              ) : (
-                cart.map((item) => (
-                  <CartItem
-                    key={item.id}
-                    item={item}
-                    onSell={handleSell}
-                    formatCurrency={formatCurrency}
-                  />
-                ))
-              )}
-            </div>
+        {/* Skills Section */}
+        <section id="skills" className="py-24">
+          <h2 className="text-3xl font-bold text-slate-100 mb-12 relative inline-block">
+            <span className="font-mono text-cyan-400 text-2xl mr-2">02.</span>
+            المهارات التقنية
+            <span className="block h-0.5 w-full bg-cyan-400/50 mt-2"></span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {SKILL_CATEGORIES.map((category: SkillCategory) => (
+              <div key={category.title} className="bg-slate-800/50 rounded-lg p-6 border border-slate-700 hover:border-cyan-400/50 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-cyan-400 mb-4">{category.title}</h3>
+                <ul className="space-y-2 font-mono text-slate-400">
+                  {category.skills.map(skill => <li key={skill}>- {skill}</li>)}
+                </ul>
+              </div>
+            ))}
           </div>
-        </div>
-      </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="py-24">
+          <h2 className="text-3xl font-bold text-slate-100 mb-12 relative inline-block">
+            <span className="font-mono text-cyan-400 text-2xl mr-2">03.</span>
+            أبرز المشاريع
+            <span className="block h-0.5 w-full bg-cyan-400/50 mt-2"></span>
+          </h2>
+          <div className="space-y-12">
+            {PROJECTS.map((project: Project) => (
+              <ProductCard key={project.id} project={project} />
+            ))}
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="py-24 text-center">
+          <h2 className="text-3xl font-bold text-slate-100 mb-4">
+             <span className="font-mono text-cyan-400 text-2xl mr-2">04.</span>
+            ماذا بعد؟
+          </h2>
+           <h3 className="text-4xl md:text-5xl font-extrabold text-slate-100 mb-4">تواصل معي</h3>
+          <p className="text-slate-400 max-w-xl mx-auto mb-8">
+            سواء كان لديك سؤال، فرصة عمل، أو مجرد فكرة تود مناقشتها، فلا تتردد في التواصل. أنا دائمًا منفتح على استكشاف آفاق جديدة.
+          </p>
+          <a href={`mailto:${SOCIAL_LINKS.email}`} className="px-8 py-4 bg-cyan-400 text-slate-900 rounded-md font-bold text-lg hover:bg-cyan-300 transition-colors duration-300">
+            أرسل رسالة
+          </a>
+        </section>
+      </main>
+
+      <Footer />
     </div>
   );
 };
